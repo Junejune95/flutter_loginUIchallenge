@@ -41,10 +41,12 @@ class _Login1FormState extends State<Login1Form> {
               },
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => ListScreen()),
-                  );
+                  if (_formKey.currentState.validate()) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ListScreen()),
+                    );
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,

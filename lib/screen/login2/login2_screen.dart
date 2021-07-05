@@ -9,7 +9,7 @@ class Login2 extends StatefulWidget {
 
 class _Login2State extends State<Login2> {
   final _formKey = GlobalKey<FormState>();
-  String email, password;
+  String _email, _password;
   final _lowColor = Colors.grey[400]; // use your own colors
   final _highColor = Colors.blueGrey;
 
@@ -30,7 +30,7 @@ class _Login2State extends State<Login2> {
               children: [
                 Container(
                   margin: EdgeInsets.all(20),
-                  height: size.height * 0.3,
+                  height: size.height * 0.35,
                   width: size.width,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -56,65 +56,11 @@ class _Login2State extends State<Login2> {
                               SizedBox(
                                 height: 20,
                               ),
-                              Focus(
-                                onFocusChange: (hasFocus) {
-                                  setState(() => _field1Color =
-                                      hasFocus ? _highColor : _lowColor);
-                                },
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      Icons.email_outlined,
-                                      color: _field1Color,
-                                    ),
-                                    labelText: 'Email',
-                                    labelStyle: TextStyle(
-                                      color: _field1Color,
-                                      fontSize: 18,
-                                    ),
-                                    border: UnderlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Colors.black12,
-                                      ),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.blueGrey),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              _buildEmailTextForm(),
                               SizedBox(
                                 height: 20,
                               ),
-                              Focus(
-                                onFocusChange: (hasFocus) {
-                                  setState(() => _field2Color =
-                                      hasFocus ? _highColor : _lowColor);
-                                },
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    border: UnderlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Colors.black12,
-                                      ),
-                                    ),
-                                    prefixIcon: Icon(
-                                      Icons.visibility_off_outlined,
-                                      color: _field2Color,
-                                    ),
-                                    labelText: 'Password',
-                                    labelStyle: TextStyle(
-                                      color: _field2Color,
-                                      fontSize: 18,
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.blueGrey),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              _buildPasswordTextForm(),
                             ],
                           ),
                         ),
@@ -138,10 +84,12 @@ class _Login2State extends State<Login2> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => ListScreen()),
-                      );
+                      if (_formKey.currentState.validate()) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => ListScreen()),
+                        );
+                      }
                     },
                     child: Text(
                       'Login',
@@ -197,6 +145,90 @@ class _Login2State extends State<Login2> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  //Focus widget use for change when text form filed foucs
+  //when foucs change color
+  Focus _buildPasswordTextForm() {
+    return Focus(
+      onFocusChange: (hasFocus) {
+        setState(() => _field2Color = hasFocus ? _highColor : _lowColor);
+      },
+      child: TextFormField(
+        obscureText: true,
+        validator: (value) {
+          _password = value;
+          // should contain at least one digit
+          final RegExp digit = RegExp(r"^(?=.*?[0-9])");
+          if (value == null || value.isEmpty) {
+            return 'Please Enter Your Password!';
+          } else if (!digit.hasMatch(value)) {
+            return 'Should contain at least one digit!';
+          } else if (value.length < 6) {
+            return 'Should contain at least 5 characters!';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          border: UnderlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.black12,
+            ),
+          ),
+          prefixIcon: Icon(
+            Icons.visibility_off_outlined,
+            color: _field2Color,
+          ),
+          labelText: 'Password',
+          labelStyle: TextStyle(
+            color: _field2Color,
+            fontSize: 18,
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: const BorderSide(color: Colors.blueGrey),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Focus _buildEmailTextForm() {
+    return Focus(
+      onFocusChange: (hasFocus) {
+        setState(() => _field1Color = hasFocus ? _highColor : _lowColor);
+      },
+      child: TextFormField(
+        validator: (value) {
+          _email = value;
+          if (value == null || value.isEmpty) {
+            return 'Please Enter Your Email!';
+          } else if (!value.contains('@')) {
+            //check email format
+            return 'Please Enter Valid Email!';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.email_outlined,
+            color: _field1Color,
+          ),
+          labelText: 'Email',
+          labelStyle: TextStyle(
+            color: _field1Color,
+            fontSize: 18,
+          ),
+          border: UnderlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.black12,
+            ),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: const BorderSide(color: Colors.blueGrey),
+          ),
+        ),
       ),
     );
   }
