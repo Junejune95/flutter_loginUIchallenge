@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:loginUIchallenge/login1/login1_form.dart';
+import 'package:loginUIchallenge/screen/login1/login1_form.dart';
 
 class LoginIn1 extends StatelessWidget {
   @override

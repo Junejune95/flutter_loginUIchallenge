@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loginUIchallenge/screen/list/list_screen.dart';
 
 class Login1Form extends StatefulWidget {
   @override
@@ -38,21 +39,29 @@ class _Login1FormState extends State<Login1Form> {
                   _formKey.currentState.save();
                 }
               },
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => ListScreen()),
+                  );
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colors.greenAccent,
-                  borderRadius: BorderRadius.circular(50),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.greenAccent,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
                 ),
               ),
             )
