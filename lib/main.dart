@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:loginUIchallenge/screen/list/list_screen.dart';
-
 void main() {
   runApp(MyApp());
 }

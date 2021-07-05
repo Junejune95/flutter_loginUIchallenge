@@ -3,9 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:loginUIchallenge/screen/login1/login1_form.dart';
 
-class LoginIn1 extends StatelessWidget {
+class Login1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(

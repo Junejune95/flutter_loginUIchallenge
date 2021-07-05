@@ -33,6 +33,8 @@ class ListScreen extends StatelessWidget {
             ),
             child: Card(
               clipBehavior: Clip.antiAlias,
+              elevation: 5,
+              shadowColor: Colors.blueAccent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
